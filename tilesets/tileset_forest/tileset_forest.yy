@@ -1,0 +1,40 @@
+{
+  "$GMTileSet":"v1",
+  "%Name":"tileset_forest",
+  "autoTileSets":[
+    {"$GMAutoTileSet":"","%Name":"forest_01","closed_edge":false,"name":"forest_01","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[11,12,13,14,15,16,17,18,21,22,23,24,25,26,27,0,],},
+  ],
+  "macroPageTiles":{
+    "SerialiseHeight":0,
+    "SerialiseWidth":0,
+    "TileSerialiseData":[],
+  },
+  "name":"tileset_forest",
+  "out_columns":13,
+  "out_tilehborder":2,
+  "out_tilevborder":2,
+  "parent":{
+    "name":"Tile Sets",
+    "path":"folders/Tile Sets.yy",
+  },
+  "resourceType":"GMTileSet",
+  "resourceVersion":"2.0",
+  "spriteId":{
+    "name":"spr_tileset_sunnysideworld_forest",
+    "path":"sprites/spr_tileset_sunnysideworld_forest/spr_tileset_sunnysideworld_forest.yy",
+  },
+  "spriteNoExport":true,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
+  "tileAnimationFrames":[],
+  "tileAnimationSpeed":15.0,
+  "tileHeight":32,
+  "tilehsep":0,
+  "tilevsep":0,
+  "tileWidth":32,
+  "tilexoff":0,
+  "tileyoff":0,
+  "tile_count":180,
+}

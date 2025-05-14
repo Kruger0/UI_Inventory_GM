@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_class_item",
+  "%Name":"UiPanel",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_class_item",
+  "name":"UiPanel",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Interface",
+    "path":"folders/Scripts/Interface.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_game_data",
+  "%Name":"ClassInventory",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_game_data",
+  "name":"ClassInventory",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Inventory",
+    "path":"folders/Scripts/Inventory.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

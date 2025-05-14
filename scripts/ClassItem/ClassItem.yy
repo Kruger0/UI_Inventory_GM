@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_class_inventory",
+  "%Name":"ClassItem",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_class_inventory",
+  "name":"ClassItem",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Inventory",
+    "path":"folders/Scripts/Inventory.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_class_panel",
+  "%Name":"ItemDatabase",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_class_panel",
+  "name":"ItemDatabase",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Data",
+    "path":"folders/Scripts/Data.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

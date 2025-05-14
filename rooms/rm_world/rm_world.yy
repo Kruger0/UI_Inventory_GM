@@ -1,6 +1,6 @@
 {
   "$GMRoom":"v1",
-  "%Name":"Room1",
+  "%Name":"rm_world",
   "creationCodeFile":"",
   "inheritCode":false,
   "inheritCreationOrder":false,
@@ -1575,7 +1575,7 @@
           1228,1229,1230,1227,1228,1229,1230,1227,
         ],},"tilesetId":{"name":"tileset_sunnysideworld","path":"tilesets/tileset_sunnysideworld/tileset_sunnysideworld.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
   ],
-  "name":"Room1",
+  "name":"rm_world",
   "parent":{
     "name":"Rooms",
     "path":"folders/Rooms.yy",

@@ -14,25 +14,36 @@ enum RARITY {
 
 global.itemList = {}
 
-function CreateItem(_name, _type, _config = {}) {
+function CreateItem(_name, _id, _type, _config = {}) {
   global.itemList[$ _name] = new Item(_config) 
 }
 
+#region Tools
 
-CreateItem("Sword",     ITEM.TOOL, {})
-CreateItem("Pickaxe",   ITEM.TOOL, {})
-CreateItem("Axe",       ITEM.TOOL, {})
-CreateItem("Hammer",    ITEM.TOOL, {})
-CreateItem("Rod",       ITEM.TOOL, {})
+  CreateItem("Sword",     "itemSword",     ITEM.TOOL, {})
+  CreateItem("Pickaxe",   "itemPickaxe",   ITEM.TOOL, {})
+  CreateItem("Axe",       "itemAxe",       ITEM.TOOL, {})
+  CreateItem("Hammer",    "itemHammer",    ITEM.TOOL, {})
+  CreateItem("Rod",       "itemHammer",    ITEM.TOOL, {})
 
-CreateItem("Pumpkin",   ITEM.CROP, {})
-CreateItem("Potato",    ITEM.CROP, {})
-CreateItem("Carrot",    ITEM.CROP, {})
-CreateItem("Sunflower", ITEM.CROP, {})
-CreateItem("Wheat",     ITEM.CROP, {})
+#endregion
 
-CreateItem("Egg",       ITEM.MATERIAL, {})
-CreateItem("Fish",      ITEM.MATERIAL, {})
-CreateItem("Milk",      ITEM.MATERIAL, {})
-CreateItem("Wood",      ITEM.MATERIAL, {})
-CreateItem("Rock",      ITEM.MATERIAL, {})
+#region Crops
+
+  CreateItem("Pumpkin",   "itemPumpkin",   ITEM.CROP, {})
+  CreateItem("Potato",    "itemPotato",    ITEM.CROP, {})
+  CreateItem("Carrot",    "itemCarrot",    ITEM.CROP, {})
+  CreateItem("Sunflower", "itemSunflower", ITEM.CROP, {})
+  CreateItem("Wheat",     "itemWheat",     ITEM.CROP, {})
+
+#endregion
+
+#region Materials
+
+  CreateItem("Egg",        "itemEgg",      ITEM.MATERIAL, {})
+  CreateItem("Fish",       "itemFish",     ITEM.MATERIAL, {})
+  CreateItem("Milk",       "itemMilk",     ITEM.MATERIAL, {})
+  CreateItem("Wood",       "itemWood",     ITEM.MATERIAL, {})
+  CreateItem("Rock",       "itemRock",     ITEM.MATERIAL, {})
+
+#endregion

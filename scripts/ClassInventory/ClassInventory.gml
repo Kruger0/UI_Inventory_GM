@@ -13,6 +13,10 @@ function InventoryManager(_config = {}) constructor {
   }
   
   // Public
+  static Create = function() {
+    show_debug_message("hello");
+    return self;
+  }
   static GetCols = function() {
     return __.cols;
   }
@@ -57,7 +61,7 @@ function InventoryManager(_config = {}) constructor {
       for (var _j = 0; _j < __.cols; _j++) {
         var _xx = (_j * 32) + _x;
         var _yy = (_i * 32) + _y;
-        scribble("[[ ]").draw(_xx, _yy)
+        scribble("[sword]").draw(_xx, _yy)
       }
     }
     

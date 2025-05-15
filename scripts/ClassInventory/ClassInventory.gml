@@ -1,20 +1,44 @@
 
-///@param Width menu width
-function InventoryManager(_config = {}) constructor {
+
+function InventoryManager(_cols, _rows) constructor {
   
   // Private
   __ = {};
   with (__) {
-	 cols   = _config[$ "cols"]  ?? 2;
+   cols   = _config[$ "cols"]  ?? 2;
 	 rows   = _config[$ "rows"] ?? 2;
-   slots  = [];
-   slotSelected = 0;
    isOpen = false;
+	   
+   panelSpr = undefined;
+   panelScl = 1;
+   panelRound = 5;
+   panelColor = c_white;
+   panelAlpha = 1;
+   
+   slotArray    = [];
+   slotSelected = 0;
+   slotWidth    = 4;
+   slotHeight   = 4;
+   slotSprite   = undefined;
+   slotHPad     = 2;
+   slotVPad     = 2;
+    
+   color = c_white;
+   alpha = 1;
+   hPad   = 2;
+   vPad   = 2;
   }
   
   // Public
   static Create = function() {
-    show_debug_message("hello");
+    
+    for (var _i = 0; _i < __.rows; _i++) {
+      for (var _j = 0; _j < __.cols; _j++) {
+        // Create slots
+        array_push(__.slotArray, new Slot())
+      }
+    }
+    
     return self;
   }
   static GetCols = function() {

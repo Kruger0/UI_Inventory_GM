@@ -1,6 +1,3 @@
 
-inventory = new InventoryManager({
-  cols  : 8,
-  rows  : 4,
-})
+inventory = new InventoryManager()
   .Create()

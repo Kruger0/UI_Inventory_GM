@@ -53,44 +53,55 @@ function InventoryManager(_slots, _columns) constructor {
     return __.isOpen;
   }
   
-  static AddItem = function(_itemId, _itemData) {
+  ///@func AddItem(itemId, [itemCount], [itemData])
+  static AddItem = function(_itemId, _itemCount = 1, _itemData = undefined) {
+    if (_itemCount < 1) return false;
     
-    // Se é um ítem estacável, procura o inventário por um stack dele
-    if (is_numeric(_itemData)) {
-      var _itemCount = _itemData
-      var _itemStack = ItemGetData(_itemId).__.stackSize
+    // Se não tem NBT, procura o inventário por um stack dele
+    if (is_undefined(_itemData)) {
+      var _tempCount = _itemCount
+      var _itemStack = ItemGetData(_itemId).GetStackSize()
+      
+      // Preenche todos os slots que encontrar
       for (var _i = 0; _i < __.slots; _i++) {
         var _slot = __.slotArray[_i]  
-        if (is_struct(_slot) && _slot.GetId() == _itemId) {// se é um slot do mesmo item
-          while (_itemCount > 0 && _slot.GetData() < _itemStack) {
-            _slot.__.itemData++;
-            _slot.SetScale().SetAngle()
-            _itemCount--;
+        if (_slot != -1 && _slot.GetId() == _itemId) {// se é um slot do mesmo item
+          while (_tempCount > 0 && _slot.GetCount() < _itemStack) {
+            _slot.SetCount(_slot.GetCount()+1);
+            _slot.SetScale(1.25).SetAngle(15)
+            _tempCount--;
           }
         }      
       }
-      // Se sobrou item estacável
-      while (_itemCount > 0) {
+      
+      // Se não tinha slot suficiente
+      while (_tempCount > 0) {
         for (var _i = 0; _i < __.slots; _i++) {
           var _slot = __.slotArray[_i]
           if (_slot == -1) {
-            if (_itemCount <= _itemStack) {
-              __.slotArray[_i] = new Slot(_itemId, _itemCount)
-              _itemCount = 0;
-              break;
+            if (_tempCount <= _itemStack) {
+              __.slotArray[_i] = new Slot(_itemId, _tempCount)
+              _tempCount = 0;
+              break;              
             } else {
               __.slotArray[_i] = new Slot(_itemId, _itemStack)
-              _itemCount -= _itemStack
+              _tempCount -= _itemStack;
             }
           }
         }
-        if (_i == __.slots) break;
+        
+        if (_tempCount <= 0) break;
+        
+        // Se não coube item no inventário
+        if (_tempCount) {
+          show_debug_message($"not enough space for{_itemId} - {_tempCount}")
+          break;
+        }
+        //if (_i == __.slots) break;
       }
-    }
-
-    // Se é um ítem único
-    if (is_struct(_itemData)) {
-    
+      show_debug_message($"{_itemId} - {_tempCount} / {_itemCount}")
+    } else {
+      // Se tem NBT
     }
   }
   static RemoveItem = function(_item) {
@@ -126,13 +137,15 @@ function InventoryManager(_slots, _columns) constructor {
     var _slotWidth  = 32
     var _slotHeight = 32
     var _wid = __.cols * _slotWidth
-    var _hei = __.slots div __.cols * _slotHeight
+    var _hei = ceil(__.slots / __.cols) * _slotHeight
     var _bgPad = 4
     draw_sprite_stretched(spr_dt_box, 0, -_wid/2 - _bgPad, -_hei/2 - _bgPad, _wid + _bgPad*2, _hei + _bgPad*2)
     
     // Input
     var _mouseX = (device_mouse_x_to_gui(0) - _x) / _scale
     var _mouseY = (device_mouse_y_to_gui(0) - _y - _animValue) / _scale            
+    // touch
+    // keypad / dpad
 
     // Slots
     var _overId = -1
@@ -168,8 +181,8 @@ function InventoryManager(_slots, _columns) constructor {
       // Item
       var _itemScale = _slot.GetScale()
       var _itemAngle = _slot.GetAngle()
-      draw_sprite_ext(ItemGetData(_slot.GetId()).__.sprite, 0, _sx + _slotWidth/2, _sy + _slotHeight/2, _itemScale.x, _itemScale.y, _itemAngle, -1, 1)
-      scribble(_slot.GetData()).align(2, 2).transform(1.0, _itemScale.y).draw(_sx + _slotWidth - 1, _sy + _slotHeight + 2)
+      draw_sprite_ext(ItemGetData(_slot.GetId()).GetSprite(), 0, _sx + _slotWidth/2, _sy + _slotHeight/2, _itemScale.x, _itemScale.y, _itemAngle, -1, 1)
+      scribble(_slot.GetCount()).align(2, 2).transform(1.0, _itemScale.y).draw(_sx + _slotWidth - 1, _sy + _slotHeight + 2)
       
       // Durability
       
@@ -177,7 +190,7 @@ function InventoryManager(_slots, _columns) constructor {
     
     // Item Description
     if (_overId != -1) {
-      var _descString = ItemGetData(_overId).__.name + "\n[c_ltgray]" + ItemGetData(_overId).__.description
+      var _descString = ItemGetData(_overId).GetName() + "\n[c_ltgray]" + ItemGetData(_overId).GetDesc()
       var _descHPad  = 6
       var _descVPad  = 3
       var _descWidth = string_width_scribble(_descString) + _descHPad*2

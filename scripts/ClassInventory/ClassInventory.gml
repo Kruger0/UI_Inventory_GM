@@ -61,8 +61,8 @@ function InventoryManager(_slots, _columns) constructor {
       var _itemStack = ItemGetData(_itemId).__.stackSize
       for (var _i = 0; _i < __.slots; _i++) {
         var _slot = __.slotArray[_i]  
-        if (is_struct(_slot) && _slot.__.itemId == _itemId) {// se é um slot do mesmo item
-          while (_itemCount > 0 && _slot.__.itemData < _itemStack) {
+        if (is_struct(_slot) && _slot.GetId() == _itemId) {// se é um slot do mesmo item
+          while (_itemCount > 0 && _slot.GetData() < _itemStack) {
             _slot.__.itemData++;
             _slot.SetScale().SetAngle()
             _itemCount--;

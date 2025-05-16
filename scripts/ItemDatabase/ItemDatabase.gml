@@ -1,10 +1,4 @@
 
-enum ITEM {
-  TOOL,
-  CROP,
-  MATERIAL
-}
-
 enum RARITY {
   COMMON,
   RARE,
@@ -12,38 +6,27 @@ enum RARITY {
   LEGENDARY,
 }
 
-global.itemList = {}
+global.itemDatabase = {}
 
-function CreateItem(_name, _id, _type, _config = {}) {
-  global.itemList[$ _name] = new Item(_config) 
+with (global.itemDatabase) {
+  itemSword       = new Item("Sword", "Very sharp", sword, {stackSize: 1,durability: 200})
+  itemPickaxe     = new Item("Pickaxe", "Very sharp", pickaxe, {stackSize: 1,durability: 200})
+  itemAxe         = new Item("Axe", "Very sharp", axe, {stackSize: 1,durability: 200})
+  itemHammer      = new Item("Hammer", "Very sharp", hammer, {stackSize: 1,durability: 200})
+  
+  itemPumpkin     = new Item("Pumpkin", "Halloween", pumpkin_05)
+  itemPotato      = new Item("Potato", "Great for fries!", potato_05)
+  itemCarrot      = new Item("Carrot", "Tasty", carrot_05)
+  itemSunflower   = new Item("Sunflower", "Oh sunshine", sunflower_05)
+  
+  itemEgg         = new Item("Egg", "Ommelet", egg)
+  itemFish        = new Item("Fish", "Smelly", fish)
+  itemMilk        = new Item("Milk", "Yummy!", milk, {rarity: RARITY.LEGENDARY})
+  itemWood        = new Item("Wood", "Useful", wood, {stackSize: 64})
 }
 
-#region Tools
 
-  CreateItem("Sword",     "itemSword",     ITEM.TOOL, {})
-  CreateItem("Pickaxe",   "itemPickaxe",   ITEM.TOOL, {})
-  CreateItem("Axe",       "itemAxe",       ITEM.TOOL, {})
-  CreateItem("Hammer",    "itemHammer",    ITEM.TOOL, {})
-  CreateItem("Rod",       "itemHammer",    ITEM.TOOL, {})
+function ItemGetData(_itemId) {
+  return global.itemDatabase[$ _itemId]
+}
 
-#endregion
-
-#region Crops
-
-  CreateItem("Pumpkin",   "itemPumpkin",   ITEM.CROP, {})
-  CreateItem("Potato",    "itemPotato",    ITEM.CROP, {})
-  CreateItem("Carrot",    "itemCarrot",    ITEM.CROP, {})
-  CreateItem("Sunflower", "itemSunflower", ITEM.CROP, {})
-  CreateItem("Wheat",     "itemWheat",     ITEM.CROP, {})
-
-#endregion
-
-#region Materials
-
-  CreateItem("Egg",        "itemEgg",      ITEM.MATERIAL, {})
-  CreateItem("Fish",       "itemFish",     ITEM.MATERIAL, {})
-  CreateItem("Milk",       "itemMilk",     ITEM.MATERIAL, {})
-  CreateItem("Wood",       "itemWood",     ITEM.MATERIAL, {})
-  CreateItem("Rock",       "itemRock",     ITEM.MATERIAL, {})
-
-#endregion

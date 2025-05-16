@@ -1,13 +1,16 @@
 
-function Item(_config) constructor {
+function Item(_name, _desc, _sprite, _stackSize, _config = {}) constructor {
 	// Private
   __ = {};
   with (__) {
+    name        = _name;
+    description = _desc;
+    sprite      = _sprite;
+    stackSize   = _stackSize
+    
     consumable  = _config[$ "consumable"] ?? false;
-    stackSize   = _config[$ "stackSize"]  ?? 8;
-    categoty    = _config[$ "category"]   ?? "";
-    sprite      = _config[$ "sprite"]     ?? undefined;
     rarity      = _config[$ "rarity"]     ?? RARITY.COMMON;
+    on_use      = _config[$ "on_use"]     ?? undefined;
   }
   
   static Draw = function() {

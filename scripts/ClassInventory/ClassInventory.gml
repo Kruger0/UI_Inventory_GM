@@ -95,14 +95,21 @@ function InventoryManager(_slots, _columns) constructor {
         
         // Se não coube item no inventário
         if (_tempCount) {
-          show_debug_message($"not enough space for{_itemId} - {_tempCount}")
+          show_debug_message($"not enough space for {_itemId} - {_tempCount}")
           break;
         }
         //if (_i == __.slots) break;
       }
-      show_debug_message($"{_itemId} - {_tempCount} / {_itemCount}")
+      show_debug_message($"Added {_itemId} - {_tempCount} / {_itemCount}")
     } else {
       // Se tem NBT
+      for (var _i = 0; _i < __.slots; _i++) {
+        var _slot = __.slotArray[_i]
+        if (_slot == -1) {
+          __.slotArray[_i] = new Slot(_itemId, _itemCount, _itemData)
+          break;
+        }
+      }      
     }
   }
   static RemoveItem = function(_item) {
@@ -184,7 +191,10 @@ function InventoryManager(_slots, _columns) constructor {
       var _itemScale = _slot.GetScale()
       var _itemAngle = _slot.GetAngle()
       draw_sprite_ext(ItemGetData(_slot.GetId()).GetSprite(), 0, _sx + _slotWidth/2, _sy + _slotHeight/2, _itemScale.x, _itemScale.y, _itemAngle, -1, 1)
-      scribble(_slot.GetCount()).align(2, 2).transform(1.0, _itemScale.y).draw(_sx + _slotWidth - 1, _sy + _slotHeight + 2)
+      if (ItemGetData(_slot.GetId()).GetStackSize() > 1) {
+        scribble(_slot.GetCount()).align(2, 2).transform(1.0, _itemScale.y).draw(_sx + _slotWidth - 1, _sy + _slotHeight + 2) 
+      }
+      
       
       // Durability
       

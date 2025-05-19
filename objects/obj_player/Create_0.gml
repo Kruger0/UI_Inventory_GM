@@ -1,2 +1,2 @@
 
-inventory = new InventoryManager(13, 4)
+inventory = new InventoryManager(32, 8)

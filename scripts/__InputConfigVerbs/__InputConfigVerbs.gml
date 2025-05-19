@@ -7,11 +7,8 @@ function __InputConfigVerbs()
         DOWN,
         LEFT,
         RIGHT,
-        ACCEPT,
-        CANCEL,
-        ACTION,
-        SPECIAL,
-        PAUSE,
+        SELECT,
+        INV,
     }
     
     enum INPUT_CLUSTER
@@ -27,11 +24,8 @@ function __InputConfigVerbs()
         InputDefineVerb(INPUT_VERB.DOWN,    "down",       [vk_down,  "S"],    [ gp_axislv, gp_padd]);
         InputDefineVerb(INPUT_VERB.LEFT,    "left",       [vk_left,  "A"],    [-gp_axislh, gp_padl]);
         InputDefineVerb(INPUT_VERB.RIGHT,   "right",      [vk_right, "D"],    [ gp_axislh, gp_padr]);
-        InputDefineVerb(INPUT_VERB.ACCEPT,  "accept",      vk_space,            gp_face1);
-        InputDefineVerb(INPUT_VERB.CANCEL,  "cancel",      vk_backspace,        gp_face2);
-        InputDefineVerb(INPUT_VERB.ACTION,  "action",      vk_enter,            gp_face3);
-        InputDefineVerb(INPUT_VERB.SPECIAL, "special",     vk_shift,            gp_face4);
-        InputDefineVerb(INPUT_VERB.PAUSE,   "pause",       vk_escape,           gp_start);
+        InputDefineVerb(INPUT_VERB.SELECT,  "select",      vk_space,            gp_face1);
+        InputDefineVerb(INPUT_VERB.INV,     "inv",         "I",                 gp_face2);
     }
     else //Flip A/B over on Switch
     {
@@ -39,11 +33,6 @@ function __InputConfigVerbs()
         InputDefineVerb(INPUT_VERB.DOWN,    "down",    undefined, [ gp_axislv, gp_padd]);
         InputDefineVerb(INPUT_VERB.LEFT,    "left",    undefined, [-gp_axislh, gp_padl]);
         InputDefineVerb(INPUT_VERB.RIGHT,   "right",   undefined, [ gp_axislh, gp_padr]);
-        InputDefineVerb(INPUT_VERB.ACCEPT,  "accept",  undefined,   gp_face2); // !!
-        InputDefineVerb(INPUT_VERB.CANCEL,  "cancel",  undefined,   gp_face1); // !!
-        InputDefineVerb(INPUT_VERB.ACTION,  "action",  undefined,   gp_face3);
-        InputDefineVerb(INPUT_VERB.SPECIAL, "special", undefined,   gp_face4);
-        InputDefineVerb(INPUT_VERB.PAUSE,   "pause",   undefined,   gp_start);
     }
     
     //Define a cluster of verbs for moving around

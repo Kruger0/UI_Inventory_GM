@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"fnt_main",
+  "%Name":"fnt_inventory",
   "AntiAlias":0,
   "applyKerning":0,
   "ascender":12,
@@ -187,10 +187,10 @@
   "last":0,
   "lineHeight":14,
   "maintainGms1Font":false,
-  "name":"fnt_main",
+  "name":"fnt_inventory",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Assets",
+    "path":"folders/InventoryManager/Assets.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -204,10 +204,7 @@
   "sdfSpread":8,
   "size":12.0,
   "styleName":"Medium",
-  "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
-  },
+  "textureGroupId":null,
   "TTFName":"",
   "usesSDF":false,
 }

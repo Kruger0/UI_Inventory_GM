@@ -6,7 +6,7 @@
   "name":"ItemDatabase",
   "parent":{
     "name":"Data",
-    "path":"folders/Scripts/Data.yy",
+    "path":"folders/InventoryManager/Scripts/Data.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

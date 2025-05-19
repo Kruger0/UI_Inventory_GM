@@ -11,7 +11,12 @@ if (keyboard_check_pressed(vk_space)) {
 }
 
 if (keyboard_check_pressed(ord("P"))) {
-  inventory.AddItem(choose("itemSword", "itemAxe", "itemPickaxe", "itemHammer"), 1, {rarity : ItemChooseRarity(), damage: irandom(300)});
+  var _itemId = choose("itemSword", "itemAxe", "itemPickaxe", "itemHammer")
+  var _itemData = {
+    rarity : ItemChooseRarity(),
+    damage: irandom(ItemGetData(_itemId).__.durability)
+  }
+  inventory.AddItem(_itemId, 1, _itemData);
 }
 
 if (keyboard_check_pressed(ord("W"))) {

@@ -24,7 +24,7 @@ function __InputConfigVerbs()
         InputDefineVerb(INPUT_VERB.DOWN,    "down",       [vk_down,  "S"],    [ gp_axislv, gp_padd]);
         InputDefineVerb(INPUT_VERB.LEFT,    "left",       [vk_left,  "A"],    [-gp_axislh, gp_padl]);
         InputDefineVerb(INPUT_VERB.RIGHT,   "right",      [vk_right, "D"],    [ gp_axislh, gp_padr]);
-        InputDefineVerb(INPUT_VERB.SELECT,  "select",      vk_space,            gp_face1);
+        InputDefineVerb(INPUT_VERB.SELECT,  "select",     [vk_space, mb_left],  gp_face1);
         InputDefineVerb(INPUT_VERB.INV,     "inv",         "I",                 gp_face2);
     }
     else //Flip A/B over on Switch

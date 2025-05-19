@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ClassSlot",
   "parent":{
-    "name":"Inventory",
-    "path":"folders/Scripts/Inventory.yy",
+    "name":"Classes",
+    "path":"folders/InventoryManager/Scripts/Classes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

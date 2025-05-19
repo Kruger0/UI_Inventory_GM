@@ -1,16 +1,18 @@
 
-function Slot(_itemId, _itemCount = 1, _itemData = undefined) constructor {
+function Slot(_slotId, _slotParent, _itemId, _itemCount = 1, _itemData = undefined) constructor {
   
   // Private
   __ = {}
   with (__) {
+    slotId    = _slotId
+    slotParent= _slotParent
     itemId    = _itemId;
     itemCount = _itemCount;
     itemData  = _itemData;  
     
-    xScale    = 1.25;
-    yScale    = 1.25;
-    angle     = 15;   
+    xScale    = 1.0;
+    yScale    = 1.0;
+    angle     = 0;   
   }
   
   // Public
@@ -26,6 +28,9 @@ function Slot(_itemId, _itemCount = 1, _itemData = undefined) constructor {
   }
   static SetCount = function(_itemCount) {
     __.itemCount = _itemCount;
+    if (__.itemCount <= 0) {
+      Destroy()
+    }
     return self;
   }
   static GetData = function() {
@@ -34,6 +39,10 @@ function Slot(_itemId, _itemCount = 1, _itemData = undefined) constructor {
   static SetData = function(_itemData) {
     __.itemData = _itemData;
     return self;
+  }
+  
+  static Destroy = function() {
+    __.slotParent.__.slotArray[__.slotId] = -1
   }
   
   static GetScale = function() {

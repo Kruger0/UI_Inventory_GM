@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"String",
   "parent":{
-    "name":"Helpers",
-    "path":"folders/Scripts/Helpers.yy",
+    "name":"Functions",
+    "path":"folders/InventoryManager/Scripts/Functions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

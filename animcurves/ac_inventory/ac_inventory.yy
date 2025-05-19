@@ -14,8 +14,8 @@
   "function":2,
   "name":"ac_inventory",
   "parent":{
-    "name":"Animation Curves",
-    "path":"folders/Animation Curves.yy",
+    "name":"Assets",
+    "path":"folders/InventoryManager/Assets.yy",
   },
   "resourceType":"GMAnimCurve",
   "resourceVersion":"2.0",

@@ -76,7 +76,7 @@ function InventoryManager(_name, _slots, _columns) constructor {
         if (_slot != -1 && _slot.GetId() == _itemId) {// se é um slot do mesmo item
           while (_tempCount > 0 && _slot.GetCount() < _itemStack) {
             _slot.SetCount(_slot.GetCount()+1);
-            _slot.SetScale(1.25).SetAngle(15)
+            _slot.SetScale(1.5)
             _tempCount--;
           }
         }      
@@ -88,11 +88,11 @@ function InventoryManager(_name, _slots, _columns) constructor {
           var _slot = __.slotArray[_i]
           if (_slot == -1) {
             if (_tempCount <= _itemStack) {
-              __.slotArray[_i] = new Slot(_itemId, _tempCount)
+              __.slotArray[_i] = new Slot(_i, self, _itemId, _tempCount).SetScale(1.5)
               _tempCount = 0;
               break;              
             } else {
-              __.slotArray[_i] = new Slot(_itemId, _itemStack)
+              __.slotArray[_i] = new Slot(_i, self, _itemId, _itemStack).SetScale(1.5)
               _tempCount -= _itemStack;
             }
           }
@@ -113,7 +113,8 @@ function InventoryManager(_name, _slots, _columns) constructor {
       for (var _i = 0; _i < __.slots; _i++) {
         var _slot = __.slotArray[_i]
         if (_slot == -1) {
-          __.slotArray[_i] = new Slot(_itemId, _itemCount, _itemData)
+          __.slotArray[_i] = new Slot(_i, self, _itemId, _itemCount, _itemData).SetScale(1.5)
+          show_debug_message($"Added {_itemId} - {_itemData}")
           break;
         }
       }      
@@ -157,18 +158,14 @@ function InventoryManager(_name, _slots, _columns) constructor {
     // Input
     var _mouseX = (InputMouseGuiX() - _x) / __.scale
     var _mouseY = (InputMouseGuiY() - _y - _animValue) / __.scale
-    //var _up     = InputPressed(INPUT_VERB.UP)
-    //var _down   = InputPressed(INPUT_VERB.DOWN)
-    //var _left   = InputPressed(INPUT_VERB.LEFT)
-    //var _right  = InputPressed(INPUT_VERB.RIGHT)
-    //var _select = InputPressed(INPUT_VERB.SELECT)    
+    var _select = InputPressed(INPUT_VERB.SELECT)    
 
     // Slots
     var _overSlot = -1;
     for (var _i = 0; _i < __.slots; _i++) {
       var _sx = _i mod __.cols * __.slotWidth - _wid/2;
       var _sy = _i div __.cols * __.slotHeight - _hei/2;      
-      var _slot = __.slotArray[_i]
+      var _slot = __.slotArray[_i]      
       
       // Slot box      
       var _x1 = _sx + __.slotHPad
@@ -178,34 +175,37 @@ function InventoryManager(_name, _slots, _columns) constructor {
       draw_sprite_stretched(spr_lt_box, 0, _x1, _y1, _x2 - _x1, _y2 - _y1)
       
       // Mouse Over Slot
-      if (_slot == -1) continue;
-      
-      if (InputPlayerUsingKbm()) {
-        var _mouseOver = point_in_rectangle(_mouseX, _mouseY, _x1, _y1, _x2, _y2)
-        if (_mouseOver && __.isOpen && __.animTime == __.animDuration) {
-          _overSlot = _slot;
+      if (_slot == -1) continue;   
+      var _item = ItemGetData(_slot.GetId())
+      var _mouseOver = point_in_rectangle(_mouseX, _mouseY, _x1, _y1, _x2, _y2)
+      if (_mouseOver && __.isOpen && __.animTime == __.animDuration) {
+        _overSlot = _slot;
         
-          _slot.__.xScale = lerp(_slot.__.xScale, 1.25, 0.1)
-          _slot.__.yScale = lerp(_slot.__.yScale, 1.25, 0.1)
-          //_slot.__.angle = lerp(_slot.__.angle, 15, 0.1)
-          draw_sprite_stretched(spr_w_box, 0, _x1, _y1, _x2 - _x1, _y2 - _y1)
-        } else {
-          _slot.__.xScale = lerp(_slot.__.xScale, 1, 0.1)
-          _slot.__.yScale = lerp(_slot.__.yScale, 1, 0.1)
-          _slot.__.angle = lerp(_slot.__.angle, 0, 0.1)
+        _slot.__.xScale = lerp(_slot.__.xScale, 1.5, 0.1)
+        _slot.__.yScale = lerp(_slot.__.yScale, 1.5, 0.1)
+        draw_sprite_stretched(spr_w_box, 0, _x1, _y1, _x2 - _x1, _y2 - _y1)
+        
+        // Item Use
+        if (_select) {
+          _slot.SetScale(1)
+          _item.OnUse(_slot)
         }
-      }
-      if (InputPlayerUsingGamepad()) {
         
+      } else {
+        _slot.__.xScale = lerp(_slot.__.xScale, 1, 0.1)
+        _slot.__.yScale = lerp(_slot.__.yScale, 1, 0.1)
       }
       
+      if (_slot.GetCount() <= 0) continue;
       
-      // Item
+      // Item Sprite
       var _itemScale = _slot.GetScale()
       var _itemAngle = _slot.GetAngle()
-      draw_sprite_ext(ItemGetData(_slot.GetId()).GetSprite(), 0, _sx + __.slotWidth/2, _sy + __.slotHeight/2, _itemScale.x, _itemScale.y, _itemAngle, -1, 1)
-      if (ItemGetData(_slot.GetId()).GetStackSize() > 1) {
-        scribble(_slot.GetCount()).align(2, 2).transform(1.0, _itemScale.y).draw(_sx + __.slotWidth - 1, _sy + __.slotHeight + 2) 
+      draw_sprite_ext(_item.GetSprite(), 0, _sx + __.slotWidth/2, _sy + __.slotHeight/2, _itemScale.x, _itemScale.y, _itemAngle, -1, 1)
+      
+      // Item Count
+      if (_item.GetStackSize() > 1) {
+        scribble(_slot.GetCount()).align(2, 2).transform(1.0).draw(_sx + __.slotWidth - 1, _sy + __.slotHeight + 2 - (1-_itemScale.y)*4) 
       }     
     }
     

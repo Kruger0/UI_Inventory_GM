@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"ClassInventory",
+  "%Name":"Item",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ClassInventory",
+  "name":"Item",
   "parent":{
-    "name":"Classes",
-    "path":"folders/InventoryManager/Scripts/Classes.yy",
+    "name":"Functions",
+    "path":"folders/InventoryManager/Scripts/Functions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

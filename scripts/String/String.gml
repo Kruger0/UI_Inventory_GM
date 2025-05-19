@@ -1,8 +1,9 @@
 
-
 function StringReplaceKeys(_string, _struct) {
+  if !(is_struct(_struct)) return _string;
+  
   var _result = _string;
-  var _keys = variable_struct_get_names(_struct ?? {});
+  var _keys = variable_struct_get_names(_struct);
   var _keyCount = array_length(_keys);
     
   for (var i = 0; i < _keyCount; i++) {

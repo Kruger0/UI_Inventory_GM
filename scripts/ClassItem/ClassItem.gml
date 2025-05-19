@@ -5,13 +5,14 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
   var _self = self;
   __ = {};
   with (__) {
-    name        = _name;
-    description = _desc;
-    sprite      = _sprite;
-    stackSize   = _stackSize;
+    name          = _name;
+    description   = _desc;
+    sprite        = _sprite;
+    stackSize     = _stackSize;
     
-    CustomGetName = method(_self, _config[$ "GetName"] ?? function(){return __.name})
-    CustomGetDesc   = method(_self, _config[$ "GetDesc"] ?? function(){return __.description})
+    CustomGetName = method(_self, _config[$ "GetName"]  ?? function(){return __.name})
+    CustomGetDesc = method(_self, _config[$ "GetDesc"]  ?? function(){return __.description})
+    CustomOnUse   = method(_self, _config[$ "OnUse"]    ?? function(){show_debug_message($"Used item {__.name}!")})
     
     // Copy config values & custom methods
     var _names = struct_get_names(_config);
@@ -41,6 +42,10 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
   }
   static GetData = function() {
     return __;
+  }
+    
+  static OnUse = function(_slot) {
+    __.CustomOnUse(_slot);
   }
 }
 

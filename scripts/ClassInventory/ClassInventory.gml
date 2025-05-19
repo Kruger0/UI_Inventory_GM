@@ -120,7 +120,11 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
     }
     var _pos = __animTime / __animDuration;
     var _animValue = __animHeight - animcurve_channel_evaluate(animcurve_get_channel(ac_inventory, "open"), _pos) * __animHeight;
-    if (_pos == 0) return;
+    
+    // Skip draw if not visible
+    if (_pos == 0) {
+      return;
+    }
      
     // Set matrix
     var _mat_old = matrix_get(matrix_world);
@@ -152,7 +156,10 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
       var _y2 = _y1 + __slotHeight - __slotVPad*2;
       draw_sprite_stretched(__slotSprite, 0, _x1, _y1, _x2 - _x1, _y2 - _y1);
       
-      if (_slot == -1) continue;        
+      // Skip input if empty slot
+      if (_slot == -1) {
+        continue;        
+      }
       var _item = ItemGetData(_slot.GetId());
       
       // Mouse Over Slot      
@@ -183,8 +190,7 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
       // Item Count
       if (_item.GetStackSize() > 1) {
         scribble(_slot.GetCount()).align(2, 2).transform(1.0).draw(_sx + __slotWidth - 1, _sy + __slotHeight + 2 - (1-_itemScale.y)*4);
-      }
-      if (_slot == -1) continue;     
+      }  
     }
     
     // Item Description

@@ -8,7 +8,7 @@ O constructor aceita os seguintes argumentos:
 - `name` - O nome a ser exibido no topo do inventário.
 - `slots` - A quantidade total de slots para conter os itens.
 - `columns` - A quantidade de columas para exibir os itens.
-- `[config]` - Uma struct optional que pode ser usada para configurar diversos aspectos do menu, como estilo, tamanhos, sprites de background e controle de animação. Caso o valor não seja passado por essa struct, será usado o valor default dentro do constructor.
+- `[config]` - Uma struct optional que pode ser usada para configurar diversos aspectos do inventário, como estilo, tamanhos, sprites de background e controle de animação. Caso o valor não seja passado por essa struct, será usado o valor default dentro do constructor. A lista completa se encontra no final deste documento
 
 ```gml
 /// Create event
@@ -16,6 +16,14 @@ my_inventory = new InventoryManager("Player Inventory", 32, 8, {
   slotWidth: 32,
   slotHeight: 32,
 });
+```
+
+O inventário pode ser aberto e fechado utilizando os métodos `SetOpen()` e `GetOpen()`
+
+```gml
+if (keyboard_check_pressed(ord("I"))) {
+  inventory.SetOpen(!inventory.GetOpen())
+}
 ```
 
 Após isso, o inventário pode ser renderizado no evento de **Draw GUI** chamando o método `Draw()`
@@ -37,10 +45,10 @@ O sistema utiliza uma classe chamada `Slot` para armazenar as informações do i
 Itens podem ser adicionados ao inventário usando o método `AddItem()`
 
 ```gml
-// Adiciona uma espada que recebei 68 de dano
+// Adiciona uma espada que recebeu 68 de dano
 my_inventory.AddItem("itemSword", 1, {damage:68});
 
-// Adiciona 15 madeiras
+// Adiciona 15 unidades de madeira
 my_inventory.AddItem("itemWood", 15);
 ```
 
@@ -70,3 +78,24 @@ with (global.itemDatabase) {
 ```
 
 A abstração em diferentes classes para diferentes aspectos do sistema permite fácil expansão e reutilização para diferentes jogos, com propriedades lógicas e visuais únicas e customizáveis.
+
+Lista completa de configurações do inventário
+- scale - Escala total do inventário
+- animDuration - Tempo em frames para animar a abertura e fechamendo do inventário
+- animCurve - ID da anim_curve utilizada para animar o inventário
+- animHeight - Distância que animação percorerrá
+- slotSprite - Sprite exibido no fundo do slot
+- slotWidth - Largura do slot
+- slotHeight - Altura do slot
+- slotHPad - Borda horizontal do slot
+- slotVPad - Borda vertical do slot
+- itemScale - Escala para exibir o sprite do ítem
+- itemAnim - Escala para animar o ítem durante a interação
+- itemSpeed - Velocidade de animação do ítem
+- bgSprite - Sprite exibido no fundo do inventário
+- bgHPad - Borda horizontal do fundo do inventário
+- bgVPad - Borda vertical do fundo do inventário
+- descSprite - Sprite exibido no fundo da descrição do ítem
+- descHPad - Borda horizontal do fundo da descrição do ítem
+- descVPad - Borda vertical do fundo da descrição do ítem
+- descDist - Distância que a caixa de descrição ficará do cursor no momento da exibição

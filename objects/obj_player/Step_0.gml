@@ -11,5 +11,9 @@ if (keyboard_check_pressed(vk_space)) {
 }
 
 if (keyboard_check_pressed(ord("P"))) {
-  inventory.AddItem(choose("itemSword", "itemAxe", "itemPickaxe", "itemHammer"), 1, {rarity : ItemSetRarity(), damage: irandom(300)});
+  inventory.AddItem(choose("itemSword", "itemAxe", "itemPickaxe", "itemHammer"), 1, {rarity : ItemChooseRarity(), damage: irandom(300)});
+}
+
+if (keyboard_check_pressed(ord("W"))) {
+  inventory.AddItem("itemWatch")
 }

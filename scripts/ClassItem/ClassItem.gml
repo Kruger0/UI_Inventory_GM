@@ -10,6 +10,8 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
     sprite      = _sprite;
     stackSize   = _stackSize;
     
+    CustomGetDesc   = method(_self, _config[$ "GetDesc"] ?? function(){return __.description})
+    
     // Copy config values & custom methods
     var _names = struct_get_names(_config);
     for (var _i = 0; _i < array_length(_names); _i++) {
@@ -28,20 +30,7 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
     return __.name;
   }
   static GetDesc = function(_itemData) {
-    // procura na description pelas keys
-    
-    var _result = __.description
-    var _keys = variable_struct_get_names(_itemData ?? {});
-    var _key_count = array_length(_keys)
-    
-    for (var i = 0; i < _key_count; i++) {
-        var _key = _keys[i];
-        var _tag = "{" + _key + "}";
-        var _value = string(_itemData[$ _key] ?? "key_not_found");
-        _result = string_replace_all(_result, _tag, _value);
-    }
-    
-    return _result;
+    return StringReplaceKeys(__.CustomGetDesc(), _itemData)
   }
   static GetSprite = function() {
     return __.sprite;
@@ -54,14 +43,3 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
   }
 }
 
-//bread = new Item("Bread", "food", spr_attack, 10, RARITY.COMMON, {
-//  consume : true,
-//  rarity : "Common",
-//  saturation : 5,
-//  OnUse : function() {
-//    show_message(GetName())
-//  }
-//})
-
-//bread.OnUse()
-//game_end()

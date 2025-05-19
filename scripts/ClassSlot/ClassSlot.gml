@@ -52,3 +52,4 @@ function Slot(_itemId, _itemCount = 1, _itemData = undefined) constructor {
     return self;
   } 
 }
+

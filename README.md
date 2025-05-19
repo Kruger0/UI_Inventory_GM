@@ -45,10 +45,10 @@ O sistema utiliza uma classe chamada `Slot` para armazenar as informações do i
 Itens podem ser adicionados ao inventário usando o método `AddItem()`
 
 ```gml
-// Adiciona uma espada que recebei 68 de dano
+// Adiciona uma espada que recebeu 68 de dano
 my_inventory.AddItem("itemSword", 1, {damage:68});
 
-// Adiciona 15 madeiras
+// Adiciona 15 unidades de madeira
 my_inventory.AddItem("itemWood", 15);
 ```
 

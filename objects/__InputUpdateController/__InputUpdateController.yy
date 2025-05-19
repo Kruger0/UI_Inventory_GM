@@ -3,13 +3,14 @@
   "%Name":"__InputUpdateController",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":1,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":3,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"__InputUpdateController",
   "overriddenProperties":[],
   "parent":{
     "name":"(System)",
-    "path":"folders/Libraries/Input/(System).yy",
+    "path":"folders/Input/(System).yy",
   },
   "parentObjectId":null,
   "persistent":true,

@@ -6,7 +6,7 @@
   "name":"InputDeviceGetGamepadType",
   "parent":{
     "name":"Device",
-    "path":"folders/Libraries/Input/Device.yy",
+    "path":"folders/Input/Device.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

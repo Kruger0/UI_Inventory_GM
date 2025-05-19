@@ -58,6 +58,9 @@ function __InputSystem()
         
         __gamepadArray = array_create(gamepad_get_device_count(), undefined);
         
+        __androidEnumerationTime = -infinity;
+        __restartTime            = -infinity;
+        
         //Master definitions for verbs
         __verbDefinitionArray = []; //Contains structs for each verb definition
         __verbDefIndexArray   = []; //Contains verb indexes for each verb definition. The verb index values are usually sequential and continuous but not always!
@@ -100,8 +103,15 @@ function __InputSystem()
         __virtualOrderDirty  = false;
         __virtualButtonArray = [];
         
-        __plugInCurrentCallback = undefined;
-        __plugInCallbackArray = __InputSystemCallbackArray();
+        // 0 = Nothing happened yet, `InputPlugInDefine()` is permitted
+        // 1 = Initializing, `InputPlugInRegisterCallback()` is permitted
+        // 2 = Finished initializing
+        __plugInsInitializeState = 0;
+        
+        __plugInArray            = [];
+        __plugInDict             = {};
+        __plugInCurrentCallback  = undefined;
+        __plugInCallbackArray    = __InputSystemCallbackArray();
         
         __InputRegisterCollect();
         __InputRegisterCollectPlayer();
@@ -110,6 +120,7 @@ function __InputSystem()
         __InputRegisterGamepadDisconnected();
         __InputRegisterGamepadConnected();
         __InputRegisterPlayerDeviceChanged();
+        __InputRegisterFindBindingCollisions();
         
         var _returnNull = function()
         {
@@ -167,24 +178,12 @@ function __InputSystem()
         
         
         
-        //Set a default device for player 0
-        if (INPUT_ON_MOBILE)
+        //Disable Windows IME
+        if (INPUT_ON_WINDOWS)
         {
-            InputPlayerSetDevice(INPUT_TOUCH);
+            keyboard_virtual_hide();
         }
-        else if (INPUT_ON_DESKTOP)
-        {
-            InputPlayerSetDevice(INPUT_KBM);
-        }
-        else if (INPUT_ON_CONSOLE)
-        {
-            var _i = 0;
-            repeat(gamepad_get_device_count())
-            {
-                if (InputDeviceIsConnected(_i)) InputPlayerSetDevice(_i);
-                ++_i;
-            }
-        }
+        
         
         //Create a time source if the library needs to self-manage
         if (INPUT_COLLECT_MODE != 2)
@@ -193,8 +192,7 @@ function __InputSystem()
             {
                 if (INPUT_COLLECT_MODE == 1)
                 {
-                    __InputPlugInExecuteCallbacks(INPUT_PLUG_IN_CALLBACK.COLLECT);
-                    if (INPUT_UPDATE_AFTER_COLLECT) __InputPlugInExecuteCallbacks(INPUT_PLUG_IN_CALLBACK.UPDATE);
+                    __InputCollect();
                 }
                 else if (INPUT_COLLECT_MODE == 0)
                 {
@@ -226,15 +224,22 @@ function __InputSystem()
                             }
                             else
                             {
-                                if (GM_build_type == "run")
+                                if (__restartTime == __time)
                                 {
-                                    //Be nasty when running from the IDE >:(
-                                    __InputError("__InputUpdateController has been destroyed\nPlease ensure that __InputUpdateController is never destroyed");
+                                    __InputTrace("Warning! Please consider an alternative method to reset game state: avoid using \"game_restart()\"");
                                 }
                                 else
-                                {
-                                    //Be nice when in production <:)
-                                    __InputTrace("Warning! __InputUpdateController has been destroyed. Please ensure that __InputUpdateController is never destroyed");
+                                {                                
+                                    if (GM_build_type == "run")
+                                    {
+                                        //Be nasty when running from the IDE >:(
+                                        __InputError("__InputUpdateController has been destroyed\nPlease ensure that __InputUpdateController is never destroyed");
+                                    }
+                                    else
+                                    {
+                                        //Be nice when in production <:)
+                                        __InputTrace("Warning! __InputUpdateController has been destroyed. Please ensure that __InputUpdateController is never destroyed");
+                                    }
                                 }
                             }
                 

@@ -157,15 +157,13 @@ function InventoryManager(_name, _slots, _columns) constructor {
     scribble(__.name).align(0, 0).draw(-_wid/2 - _slotPad*2, -_hei/2 - _nameHei)
     
     // Input
-    var _mouseX = (device_mouse_x_to_gui(0) - _x) / _scale
-    var _mouseY = (device_mouse_y_to_gui(0) - _y - _animValue) / _scale
-    var _up = InputPressed(INPUT_VERB.UP)
-    var _down = InputPressed(INPUT_VERB.DOWN)
-    var _left = InputPressed(INPUT_VERB.LEFT)
-    var _right = InputPressed(INPUT_VERB.RIGHT)
-    var _select = InputPressed(INPUT_VERB.USE)
-    // touch
-    // keypad / dpad
+    var _mouseX = (InputMouseGuiX() - _x) / _scale
+    var _mouseY = (InputMouseGuiY() - _y - _animValue) / _scale
+    var _up     = InputPressed(INPUT_VERB.UP)
+    var _down   = InputPressed(INPUT_VERB.DOWN)
+    var _left   = InputPressed(INPUT_VERB.LEFT)
+    var _right  = InputPressed(INPUT_VERB.RIGHT)
+    var _select = InputPressed(INPUT_VERB.SELECT)
 
     // Slots
     var _overSlot = -1;
@@ -174,8 +172,7 @@ function InventoryManager(_name, _slots, _columns) constructor {
       var _sy = _i div __.cols * _slotHeight - _hei/2;      
       var _slot = __.slotArray[_i]
       
-      // Slot box
-      
+      // Slot box      
       var _x1 = _sx - _slotPad
       var _y1 = _sy - _slotPad
       var _x2 = _x1 + _slotWidth + _slotPad*2
@@ -184,19 +181,26 @@ function InventoryManager(_name, _slots, _columns) constructor {
       
       // Mouse Over Slot
       if (_slot == -1) continue;
-      var _mouseOver = point_in_rectangle(_mouseX, _mouseY, _x1, _y1, _x2, _y2)
-      if (_mouseOver && __.isOpen && __.animTime == __.animDuration) {
-        _overSlot = _slot;
+      
+      if (InputPlayerUsingKbm()) {
+        var _mouseOver = point_in_rectangle(_mouseX, _mouseY, _x1, _y1, _x2, _y2)
+        if (_mouseOver && __.isOpen && __.animTime == __.animDuration) {
+          _overSlot = _slot;
         
-        _slot.__.xScale = lerp(_slot.__.xScale, 1.25, 0.1)
-        _slot.__.yScale = lerp(_slot.__.yScale, 1.25, 0.1)
-        //_slot.__.angle = lerp(_slot.__.angle, 15, 0.1)
-        draw_sprite_stretched(spr_w_box, 0, _x1, _y1, _x2 - _x1, _y2 - _y1)
-      } else {
-        _slot.__.xScale = lerp(_slot.__.xScale, 1, 0.1)
-        _slot.__.yScale = lerp(_slot.__.yScale, 1, 0.1)
-        _slot.__.angle = lerp(_slot.__.angle, 0, 0.1)
+          _slot.__.xScale = lerp(_slot.__.xScale, 1.25, 0.1)
+          _slot.__.yScale = lerp(_slot.__.yScale, 1.25, 0.1)
+          //_slot.__.angle = lerp(_slot.__.angle, 15, 0.1)
+          draw_sprite_stretched(spr_w_box, 0, _x1, _y1, _x2 - _x1, _y2 - _y1)
+        } else {
+          _slot.__.xScale = lerp(_slot.__.xScale, 1, 0.1)
+          _slot.__.yScale = lerp(_slot.__.yScale, 1, 0.1)
+          _slot.__.angle = lerp(_slot.__.angle, 0, 0.1)
+        }
       }
+      if (InputPlayerUsingGamepad()) {
+        
+      }
+      
       
       // Item
       var _itemScale = _slot.GetScale()

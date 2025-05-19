@@ -9,6 +9,7 @@ function __InputConfigVerbs()
         RIGHT,
         SELECT,
         INV,
+        ADD,
     }
     
     enum INPUT_CLUSTER
@@ -26,6 +27,7 @@ function __InputConfigVerbs()
         InputDefineVerb(INPUT_VERB.RIGHT,   "right",      [vk_right, "D"],    [ gp_axislh, gp_padr]);
         InputDefineVerb(INPUT_VERB.SELECT,  "select",     [vk_space, mb_left],  gp_face1);
         InputDefineVerb(INPUT_VERB.INV,     "inv",         "I",                 gp_face2);
+        InputDefineVerb(INPUT_VERB.ADD,     "add",         vk_enter,            gp_face3);
     }
     else //Flip A/B over on Switch
     {

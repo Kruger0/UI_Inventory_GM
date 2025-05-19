@@ -27,7 +27,7 @@ function Slot(_slotId, _slotParent, _itemId, _itemCount = 1, _itemData = undefin
   static SetCount = function(_itemCount) {
     __itemCount = _itemCount;
     if (__itemCount <= 0) {
-      Destroy()
+      Destroy();
     }
     return self;
   }

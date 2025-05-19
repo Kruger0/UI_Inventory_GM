@@ -7,9 +7,9 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
   __sprite        = _sprite;
   __stackSize     = _stackSize;
     
-  __CustomGetName = method(self, _config[$ "GetName"]  ?? function(){return __name})
-  __CustomGetDesc = method(self, _config[$ "GetDesc"]  ?? function(){return __description})
-  __CustomOnUse   = method(self, _config[$ "OnUse"]    ?? function(){show_debug_message($"Used item {__name}!")})
+  __CustomGetName = method(self, _config[$ "GetName"]  ?? function(){return __name});
+  __CustomGetDesc = method(self, _config[$ "GetDesc"]  ?? function(){return __description});
+  __CustomOnUse   = method(self, _config[$ "OnUse"]    ?? function(){show_debug_message($"Used item {__name}!")});
     
   // Copy config values & custom methods
   var _names = struct_get_names(_config);
@@ -25,10 +25,10 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
   
   // Public
   static GetName = function(_itemData = {}) {
-    return StringReplaceKeys(__CustomGetName(), _itemData)
+    return StringReplaceKeys(__CustomGetName(), _itemData);
   }
   static GetDesc = function(_itemData = {}) {
-    return StringReplaceKeys(__CustomGetDesc(), _itemData)
+    return StringReplaceKeys(__CustomGetDesc(), _itemData);
   }
   static GetSprite = function() {
     return __sprite;

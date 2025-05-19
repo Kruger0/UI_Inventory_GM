@@ -1,39 +1,40 @@
 
 
-function InventoryManager(_slots, _columns) constructor {
+function InventoryManager(_name, _slots, _columns) constructor {
   
   // Private
   __ = {};
   with (__) {
-   slots    = _slots
-	 cols     = _columns;
-   
-   
-   isOpen       = false;
-   
-   animDuration = 20;
-   animTime     = 0
-   animCurve    = 5
-	   
-   panelSpr = undefined;
-   panelScl = 1;
-   panelRound = 5;
-   panelColor = c_white;
-   panelAlpha = 1;
-   
-   slotArray    = array_create(_slots, -1);
-   slotHover    = -1
-   slotSelected = -1;
-   slotWidth    = 4;
-   slotHeight   = 4;
-   slotSprite   = undefined;
-   slotHPad     = 2;
-   slotVPad     = 2;
+    name     = _name;
+    slots    = _slots
+	  cols     = _columns;
     
-   color = c_white;
-   alpha = 1;
-   hPad   = 2;
-   vPad   = 2;
+    
+    isOpen       = false;
+    
+    animDuration = 20;
+    animTime     = 0
+    animCurve    = 5
+	    
+    panelSpr = undefined;
+    panelScl = 1;
+    panelRound = 5;
+    panelColor = c_white;
+    panelAlpha = 1;
+    
+    slotArray    = array_create(_slots, -1);
+    slotHover    = -1
+    slotSelected = -1;
+    slotWidth    = 4;
+    slotHeight   = 4;
+    slotSprite   = undefined;
+    slotHPad     = 2;
+    slotVPad     = 2;
+     
+    color = c_white;
+    alpha = 1;
+    hPad   = 2;
+    vPad   = 2;
   }
   
   // Public
@@ -125,6 +126,7 @@ function InventoryManager(_slots, _columns) constructor {
     
     // Animation
     var _animValue = 0
+    var _animHeight = 550
     var _animName = ""
     if (__.isOpen) {
       __.animTime = min(++__.animTime, __.animDuration)
@@ -134,20 +136,23 @@ function InventoryManager(_slots, _columns) constructor {
       _animName = "close"
     }
     var _pos = __.animTime / __.animDuration
-    _animValue = 500 - animcurve_channel_evaluate(animcurve_get_channel(ac_inventory, "open"), _pos) * 500
+    _animValue = _animHeight - animcurve_channel_evaluate(animcurve_get_channel(ac_inventory, "open"), _pos) * _animHeight
      
     // Visual matrix
     var _mat_old = matrix_get(matrix_world)
     var _scale = 2;
     matrix_set(matrix_world, matrix_build(_x, _y + _animValue, 0, 0, 0, 0, _scale, _scale, 1))
-
-    // Background
+    
+    // Background & name
     var _slotWidth  = 32
     var _slotHeight = 32
+    var _slotPad = -1
     var _wid = __.cols * _slotWidth
     var _hei = ceil(__.slots / __.cols) * _slotHeight
-    var _bgPad = 4
-    draw_sprite_stretched(spr_dt_box, 0, -_wid/2 - _bgPad, -_hei/2 - _bgPad, _wid + _bgPad*2, _hei + _bgPad*2)
+    var _bgPad = 6
+    var _nameHei = string_height_scribble(__.name)
+    draw_sprite_stretched(spr_dt_box, 0, -_wid/2 - _bgPad, -_hei/2 - _bgPad - _nameHei, _wid + _bgPad*2, _hei + _bgPad*2 + _nameHei)
+    scribble(__.name).align(0, 0).draw(-_wid/2 - _slotPad*2, -_hei/2 - _nameHei)
     
     // Input
     var _mouseX = (device_mouse_x_to_gui(0) - _x) / _scale
@@ -164,7 +169,7 @@ function InventoryManager(_slots, _columns) constructor {
       var _slot = __.slotArray[_i]
       
       // Slot box
-      var _slotPad = -1
+      
       var _x1 = _sx - _slotPad
       var _y1 = _sy - _slotPad
       var _x2 = _x1 + _slotWidth + _slotPad*2

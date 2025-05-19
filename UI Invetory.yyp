@@ -929,6 +929,7 @@
     {"id":{"name":"spr_idle473","path":"sprites/spr_idle473/spr_idle473.yy",},},
     {"id":{"name":"spr_jump","path":"sprites/spr_jump/spr_jump.yy",},},
     {"id":{"name":"spr_jump471","path":"sprites/spr_jump471/spr_jump471.yy",},},
+    {"id":{"name":"spr_label","path":"sprites/spr_label/spr_label.yy",},},
     {"id":{"name":"spr_lt_box","path":"sprites/spr_lt_box/spr_lt_box.yy",},},
     {"id":{"name":"spr_mining","path":"sprites/spr_mining/spr_mining.yy",},},
     {"id":{"name":"spr_mining458","path":"sprites/spr_mining458/spr_mining458.yy",},},

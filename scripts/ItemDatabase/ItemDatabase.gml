@@ -5,7 +5,7 @@ with (global.itemDatabase) {
   itemSword       = new Item("Sword", "{rarity}\nVery sharp\nDurability: {damage}/200", sword, 1, {durability: 200})
   itemPickaxe     = new Item("Pickaxe", "{rarity}\nPointy!\nDurability: {damage}/300", pickaxe, 1, {durability: 300})
   itemAxe         = new Item("Axe", "{rarity}\nChop chop\nDurability: {damage}/350", axe, 1, {durability: 350})
-  itemHammer      = new Item("Hammer", "{rarity}\nBuild and repait!\nDurability: {damage}/250", hammer, 1, {durability: 250})
+  itemHammer      = new Item("Hammer", "{rarity}\nBuild and repair!\nDurability: {damage}/250", hammer, 1, {durability: 250})
   
   itemPumpkin     = new Item("Pumpkin", "Halloween", pumpkin_05)
   itemPotato      = new Item("Potato", "Great for fries!", potato_05)
@@ -27,7 +27,7 @@ function ItemSetRarity() {
     "[#C0C0C0]Common",
     "[#60FF60]Rare",
     "[#FF60FF]Epic",
-    "[#FFA020]Legendary",
+    "[#FFA020][wave]Legendary[/wave]",
   ]
   return _tiers[irandom(array_length(_tiers)-1)]+"[/c]"
 }

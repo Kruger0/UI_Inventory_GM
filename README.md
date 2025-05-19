@@ -8,7 +8,7 @@ O constructor aceita os seguintes argumentos:
 - `name` - O nome a ser exibido no topo do inventário.
 - `slots` - A quantidade total de slots para conter os itens.
 - `columns` - A quantidade de columas para exibir os itens.
-- `[config]` - Uma struct optional que pode ser usada para configurar diversos aspectos do menu, como estilo, tamanhos, sprites de background e controle de animação. Caso o valor não seja passado por essa struct, será usado o valor default dentro do constructor. A lista completa se encontra no final deste documento
+- `[config]` - Uma struct optional que pode ser usada para configurar diversos aspectos do inventário, como estilo, tamanhos, sprites de background e controle de animação. Caso o valor não seja passado por essa struct, será usado o valor default dentro do constructor. A lista completa se encontra no final deste documento
 
 ```gml
 /// Create event
@@ -18,7 +18,7 @@ my_inventory = new InventoryManager("Player Inventory", 32, 8, {
 });
 ```
 
-O menu pode ser aberto e fechado utilizando os métodos `SetOpen()` e `GetOpen()`
+O inventário pode ser aberto e fechado utilizando os métodos `SetOpen()` e `GetOpen()`
 
 ```gml
 if (keyboard_check_pressed(ord("I"))) {
@@ -79,10 +79,10 @@ with (global.itemDatabase) {
 
 A abstração em diferentes classes para diferentes aspectos do sistema permite fácil expansão e reutilização para diferentes jogos, com propriedades lógicas e visuais únicas e customizáveis.
 
-Lista completa de configurações do menu
-- scale - Escala total do menu
+Lista completa de configurações do inventário
+- scale - Escala total do inventário
 - animDuration - Tempo em frames para animar a abertura e fechamendo do inventário
-- animCurve - ID da anim_curve utilizada para animar o menu
+- animCurve - ID da anim_curve utilizada para animar o inventário
 - animHeight - Distância que animação percorerrá
 - slotSprite - Sprite exibido no fundo do slot
 - slotWidth - Largura do slot

@@ -43,6 +43,6 @@ function ItemChooseRarity() {
     "[#FF60FF]Epic",
     "[#FFA020][wave]Legendary[/wave]",
   ]
-  return _tiers[irandom(array_length(_tiers)-1)]+"[/c]"
+  return _tiers[irandom(array_length(_tiers)-1)]+"[#C0C0C0]"
 }
 

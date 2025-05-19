@@ -10,6 +10,7 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
     sprite      = _sprite;
     stackSize   = _stackSize;
     
+    CustomGetName = method(_self, _config[$ "GetName"] ?? function(){return __.name})
     CustomGetDesc   = method(_self, _config[$ "GetDesc"] ?? function(){return __.description})
     
     // Copy config values & custom methods
@@ -26,10 +27,10 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
   }
   
   // Public
-  static GetName = function() {
-    return __.name;
+  static GetName = function(_itemData = {}) {
+    return StringReplaceKeys(__.CustomGetName(), _itemData)
   }
-  static GetDesc = function(_itemData) {
+  static GetDesc = function(_itemData = {}) {
     return StringReplaceKeys(__.CustomGetDesc(), _itemData)
   }
   static GetSprite = function() {

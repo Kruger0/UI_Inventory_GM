@@ -5,36 +5,38 @@ function InventoryManager(_name, _slots, _columns) constructor {
   // Private
   __ = {};
   with (__) {
-    name     = _name;
-    slots    = _slots
-	  cols     = _columns;
+    name          = _name;
+    slots         = _slots
+	  cols          = _columns;
+                  
+                  
+    isOpen        = false;
     
-    
-    isOpen       = false;
-    
-    animDuration = 20;
-    animTime     = 0
-    animCurve    = 5
+    animDuration  = 20;
+    animTime      = 0
+    animCurve     = 5
 	    
-    panelSpr = undefined;
-    panelScl = 1;
-    panelRound = 5;
-    panelColor = c_white;
-    panelAlpha = 1;
+    panelSpr      = undefined;
+    panelScl      = 1;
+    panelRound    = 5;
+    panelColor    = c_white;
+    panelAlpha    = 1;
     
-    slotArray    = array_create(_slots, -1);
-    slotHover    = -1
-    slotSelected = -1;
-    slotWidth    = 4;
-    slotHeight   = 4;
-    slotSprite   = undefined;
-    slotHPad     = 2;
-    slotVPad     = 2;
+    slotArray     = array_create(_slots, -1);
+    slotHover     = -1
+    slotSelected  = -1;
+    slotWidth     = 4;
+    slotHeight    = 4;
+    slotSprite    = undefined;
+    slotHPad      = 2;
+    slotVPad      = 2;
+                  
+    cursorSlot    = -1;
      
-    color = c_white;
-    alpha = 1;
-    hPad   = 2;
-    vPad   = 2;
+    color         = c_white;
+    alpha         = 1;
+    hPad          = 2;
+    vPad          = 2;
   }
   
   // Public
@@ -157,7 +159,11 @@ function InventoryManager(_name, _slots, _columns) constructor {
     // Input
     var _mouseX = (device_mouse_x_to_gui(0) - _x) / _scale
     var _mouseY = (device_mouse_y_to_gui(0) - _y - _animValue) / _scale
-    
+    var _up = InputPressed(INPUT_VERB.UP)
+    var _down = InputPressed(INPUT_VERB.DOWN)
+    var _left = InputPressed(INPUT_VERB.LEFT)
+    var _right = InputPressed(INPUT_VERB.RIGHT)
+    var _select = InputPressed(INPUT_VERB.USE)
     // touch
     // keypad / dpad
 

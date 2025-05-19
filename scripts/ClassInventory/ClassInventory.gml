@@ -22,7 +22,8 @@ function InventoryManager(_slots, _columns) constructor {
    panelAlpha = 1;
    
    slotArray    = array_create(_slots, -1);
-   slotSelected = 0;
+   slotHover    = -1
+   slotSelected = -1;
    slotWidth    = 4;
    slotHeight   = 4;
    slotSprite   = undefined;
@@ -143,12 +144,13 @@ function InventoryManager(_slots, _columns) constructor {
     
     // Input
     var _mouseX = (device_mouse_x_to_gui(0) - _x) / _scale
-    var _mouseY = (device_mouse_y_to_gui(0) - _y - _animValue) / _scale            
+    var _mouseY = (device_mouse_y_to_gui(0) - _y - _animValue) / _scale
+    
     // touch
     // keypad / dpad
 
     // Slots
-    var _overId = -1
+    var _overSlot = -1;
     for (var _i = 0; _i < __.slots; _i++) {
       var _sx = _i mod __.cols * _slotWidth - _wid/2;
       var _sy = _i div __.cols * _slotHeight - _hei/2;      
@@ -166,7 +168,7 @@ function InventoryManager(_slots, _columns) constructor {
       if (_slot == -1) continue;
       var _mouseOver = point_in_rectangle(_mouseX, _mouseY, _x1, _y1, _x2, _y2)
       if (_mouseOver && __.isOpen && __.animTime == __.animDuration) {
-        _overId = _slot.GetId()
+        _overSlot = _slot;
         
         _slot.__.xScale = lerp(_slot.__.xScale, 1.25, 0.1)
         _slot.__.yScale = lerp(_slot.__.yScale, 1.25, 0.1)
@@ -189,8 +191,9 @@ function InventoryManager(_slots, _columns) constructor {
     }
     
     // Item Description
-    if (_overId != -1) {
-      var _descString = ItemGetData(_overId).GetName() + "\n[c_ltgray]" + ItemGetData(_overId).GetDesc()
+    if (_overSlot != -1) {
+      var _descData = ItemGetData(_overSlot.GetId())
+      var _descString = _descData.GetName() + "\n[c_ltgray]" + _descData.GetDesc(_overSlot.GetData())
       var _descHPad  = 6
       var _descVPad  = 3
       var _descWidth = string_width_scribble(_descString) + _descHPad*2

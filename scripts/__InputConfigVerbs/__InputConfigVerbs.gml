@@ -24,6 +24,7 @@ function __InputConfigVerbs()
         InputDefineVerb(INPUT_VERB.LEFT,    "left",       [vk_left,  "A"],    [-gp_axislh, gp_padl]);
         InputDefineVerb(INPUT_VERB.RIGHT,   "right",      [vk_right, "D"],    [ gp_axislh, gp_padr]);
         InputDefineVerb(INPUT_VERB.INV,     "inventory",  ["I"],              [ gp_face2]);
+        InputDefineVerb(INPUT_VERB.USE,     "use",        [vk_enter],         [gp_face1]);
     }
     else //Flip A/B over on Switch
     {
@@ -31,7 +32,6 @@ function __InputConfigVerbs()
         InputDefineVerb(INPUT_VERB.DOWN,    "down",    undefined, [ gp_axislv, gp_padd]);
         InputDefineVerb(INPUT_VERB.LEFT,    "left",    undefined, [-gp_axislh, gp_padl]);
         InputDefineVerb(INPUT_VERB.RIGHT,   "right",   undefined, [ gp_axislh, gp_padr]);
-        InputDefineVerb(INPUT_VERB.INV,     "inventory",  "I",                gp_face1);
     }
     
     //Define a cluster of verbs for moving around

@@ -9,3 +9,7 @@ if (keyboard_check_pressed(vk_space)) {
   var _itemData = undefined;
   inventory.AddItem(_itemId, _itemCount, _itemData);
 }
+
+if (keyboard_check_pressed(ord("P"))) {
+  inventory.AddItem("itemPickaxe", 1, {rarity : "Legendary"});
+}

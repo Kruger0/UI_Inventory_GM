@@ -9,9 +9,6 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
                             
   __isOpen        = false;
   __scale         = _config[$ "scale"] ?? 2;
-  
-  __hPad          = _config[$ "hPad"] ?? 2;
-  __vPad          = _config[$ "vPad"] ?? 2;
  
   __animTime      = 0
   __animDuration  = _config[$ "animDuration"] ?? 20; 

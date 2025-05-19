@@ -1,5 +1,5 @@
 
-
+///@func InventoryManager(name, slots, colums, [config])
 function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
   
   #region Private
@@ -8,9 +8,10 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
 	__cols          = _columns;
                             
   __isOpen        = false;
-  __scale         = 2;
-  __hPad          = 2;
-  __vPad          = 2;
+  __scale         = _config[$ "scale"] ?? 2;
+  
+  __hPad          = _config[$ "hPad"] ?? 2;
+  __vPad          = _config[$ "vPad"] ?? 2;
  
   __animTime      = 0
   __animDuration  = _config[$ "animDuration"] ?? 20; 
@@ -24,6 +25,10 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
   __slotHeight    = _config[$ "slotHeight"] ?? 28;  
   __slotHPad      = _config[$ "slotHPad"] ?? 1;
   __slotVPad      = _config[$ "slotVPad"] ?? 1;
+  
+  __itemScale     = _config[$ "itemScale"] ?? 1;
+  __itemAnim      = _config[$ "itemAnim"] ?? 1.5;
+  __itemSpeed     = _config[$ "itemSpeed"] ?? 0.1;
     
   __bgSprite      = _config[$ "bgSprite"] ?? spr_dt_box;
   __bgHPad        = _config[$ "bgHPad"] ?? 6;
@@ -58,7 +63,7 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
         if (_slot != -1 && _slot.GetId() == _itemId) {
           while (_tempCount > 0 && _slot.GetCount() < _itemStack) {
             _slot.SetCount(_slot.GetCount()+1);
-            _slot.SetScale(1.5);
+            _slot.SetScale(__itemAnim);
             _tempCount--;
           }
         }      
@@ -70,11 +75,11 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
           var _slot = __slotArray[_i];
           if (_slot == -1) {
             if (_tempCount <= _itemStack) {
-              __slotArray[_i] = new Slot(_i, self, _itemId, _tempCount).SetScale(1.5);
+              __slotArray[_i] = new Slot(_i, self, _itemId, _tempCount).SetScale(__itemAnim);
               _tempCount = 0;
               break;              
             } else {
-              __slotArray[_i] = new Slot(_i, self, _itemId, _itemStack).SetScale(1.5);
+              __slotArray[_i] = new Slot(_i, self, _itemId, _itemStack).SetScale(__itemAnim);
               _tempCount -= _itemStack;
             }
           }
@@ -115,8 +120,9 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
     }
     var _pos = __animTime / __animDuration;
     var _animValue = __animHeight - animcurve_channel_evaluate(animcurve_get_channel(ac_inventory, "open"), _pos) * __animHeight;
+    if (_pos == 0) return;
      
-    // Rendering matrix
+    // Set matrix
     var _mat_old = matrix_get(matrix_world);
     matrix_set(matrix_world, matrix_build(_x, _y + _animValue, 0, 0, 0, 0, __scale, __scale, 1));
     
@@ -154,8 +160,8 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
       if (_mouseOver && __isOpen && __animTime == __animDuration) {
         __slotSelected = _slot;
         
-        _slot.__xScale = lerp(_slot.__xScale, 1.5, 0.1);
-        _slot.__yScale = lerp(_slot.__yScale, 1.5, 0.1);
+        _slot.__xScale = lerp(_slot.__xScale, __itemAnim, __itemSpeed);
+        _slot.__yScale = lerp(_slot.__yScale, __itemAnim, __itemSpeed);
         draw_sprite_stretched(__descSprite, 0, _x1, _y1, _x2 - _x1, _y2 - _y1);
         
         // Item Use
@@ -165,14 +171,14 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
         }
         
       } else {
-        _slot.__xScale = lerp(_slot.__xScale, 1, 0.1);
-        _slot.__yScale = lerp(_slot.__yScale, 1, 0.1);
+        _slot.__xScale = lerp(_slot.__xScale, 1, __itemSpeed);
+        _slot.__yScale = lerp(_slot.__yScale, 1, __itemSpeed);
       }
       
       // Item Sprite
       var _itemScale = _slot.GetScale();
       var _itemAngle = _slot.GetAngle();
-      draw_sprite_ext(_item.GetSprite(), 0, _sx + __slotWidth/2, _sy + __slotHeight/2, _itemScale.x, _itemScale.y, _itemAngle, -1, 1);
+      draw_sprite_ext(_item.GetSprite(), 0, _sx + __slotWidth/2, _sy + __slotHeight/2, __itemScale * _itemScale.x, __itemScale * _itemScale.y, _itemAngle, -1, 1);
       
       // Item Count
       if (_item.GetStackSize() > 1) {
@@ -194,6 +200,7 @@ function InventoryManager(_name, _slots, _columns, _config = {}) constructor {
       scribble(_descString).draw(_mouseX + __descDist/__scale, _mouseY + __descDist/__scale);
     }
     
+    // Reset matrix
     matrix_set(matrix_world, _mat_old);
   }  
 }

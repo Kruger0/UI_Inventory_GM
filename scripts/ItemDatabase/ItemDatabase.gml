@@ -1,4 +1,6 @@
 
+// Create items here
+
 global.itemDatabase = {}
 
 with (global.itemDatabase) {

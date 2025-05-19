@@ -1,7 +1,8 @@
 
+///@func Item(name, description, sprite, [stackSize], [data])
 function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor {
 	
-  // Private
+  #region Private
   __name          = _name;
   __description   = _desc;
   __sprite        = _sprite;
@@ -22,6 +23,7 @@ function Item(_name, _desc, _sprite, _stackSize = 32, _config = {}) constructor 
       self[$ _key] = _value;
     }     
   }
+  #endregion
   
   // Public
   static GetName = function(_itemData = {}) {

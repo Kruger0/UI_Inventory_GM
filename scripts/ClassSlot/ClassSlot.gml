@@ -1,4 +1,5 @@
 
+///@func Slot(slotId, slotParent, itemId, [itemCount], [itemData])
 function Slot(_slotId, _slotParent, _itemId, _itemCount = 1, _itemData = undefined) constructor {
   
   #region Private

@@ -11,3 +11,4 @@ scribble_anim_rainbow(0.8, 0.01)
 
 window_set_cursor(cr_none)
 
+show_debug_overlay(true, true)

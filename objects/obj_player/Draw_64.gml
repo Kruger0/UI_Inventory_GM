@@ -4,4 +4,4 @@ var _guiHeight = display_get_gui_height()
 
 inventory.Draw(_guiWidth * 0.5, _guiHeight * 0.5)
 
-scribble($"Inventory System Demo\n[[I] - Open/close inventory\n[[Enter] - Add items to invetory\n[[Left Click] - Use selected item").draw(16, 16)
+scribble($"Inventory System Demo\nCreated by Krug\n\n[[I] - Open/close inventory\n[[Enter] - Add items\n[[Left Click] - Use item").draw(8, 8)

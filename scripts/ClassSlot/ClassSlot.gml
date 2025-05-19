@@ -1,63 +1,61 @@
 
 function Slot(_slotId, _slotParent, _itemId, _itemCount = 1, _itemData = undefined) constructor {
   
-  // Private
-  __ = {}
-  with (__) {
-    slotId    = _slotId
-    slotParent= _slotParent
-    itemId    = _itemId;
-    itemCount = _itemCount;
-    itemData  = _itemData;  
-    
-    xScale    = 1.0;
-    yScale    = 1.0;
-    angle     = 0;   
-  }
+  #region Private
+  __slotId    = _slotId
+  __slotParent= _slotParent
+  __itemId    = _itemId;
+  __itemCount = _itemCount;
+  __itemData  = _itemData;  
+
+  __xScale    = 1.0;
+  __yScale    = 1.0;
+  __angle     = 0;   
+  #endregion
   
   // Public
   static GetId = function() {
-    return __.itemId;
+    return __itemId;
   }
   static SetId = function(_itemId) {
-    __.itemId = _itemId;
+    __itemId = _itemId;
     return self;
   }
   static GetCount = function() {
-    return __.itemCount;
+    return __itemCount;
   }
   static SetCount = function(_itemCount) {
-    __.itemCount = _itemCount;
-    if (__.itemCount <= 0) {
+    __itemCount = _itemCount;
+    if (__itemCount <= 0) {
       Destroy()
     }
     return self;
   }
   static GetData = function() {
-    return __.itemData;
+    return __itemData;
   }
   static SetData = function(_itemData) {
-    __.itemData = _itemData;
+    __itemData = _itemData;
     return self;
   }
   
   static Destroy = function() {
-    __.slotParent.__.slotArray[__.slotId] = -1
+    __slotParent.__slotArray[__slotId] = -1
   }
   
   static GetScale = function() {
-    return {x:__.xScale, y:__.yScale};
+    return {x:__xScale, y:__yScale};
   }
   static SetScale = function(_x, _y = _x) {
-    __.xScale = _x;
-    __.yScale = _y;
+    __xScale = _x;
+    __yScale = _y;
     return self;
   }
   static GetAngle = function() {
-    return __.angle;
+    return __angle;
   }
   static SetAngle = function(_angle) {
-    __.angle = _angle;
+    __angle = _angle;
     return self;
   } 
 }

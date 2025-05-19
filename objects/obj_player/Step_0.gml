@@ -14,7 +14,7 @@ if (keyboard_check_pressed(ord("P"))) {
   var _itemId = choose("itemSword", "itemAxe", "itemPickaxe", "itemHammer")
   var _itemData = {
     rarity : ItemChooseRarity(),
-    damage: irandom(ItemGetData(_itemId).__.durability)
+    damage: (ItemGetData(_itemId).durability)-4
   }
   inventory.AddItem(_itemId, 1, _itemData);
 }

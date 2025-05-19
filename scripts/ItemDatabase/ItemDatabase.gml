@@ -6,65 +6,65 @@ with (global.itemDatabase) {
     durability: 500,
     atack: 8,
     GetDesc : function(_itemData) {
-      var _desc = $"{_itemData.rarity}\nVery sharp\nAtack: {__.atack}\nDurability: {__.durability-_itemData.damage}/{__.durability}"
+      var _desc = $"{_itemData.rarity}\nVery sharp\nAtack: {atack}\nDurability: {durability-_itemData.damage}/{durability}"
       return _desc;
     },
     OnUse : function(_slot) {
       var _data = _slot.GetData()
       _data.damage++
-      if (_data.damage > __.durability) {
+      if (_data.damage > durability) {
         _slot.Destroy()
       }
       _slot.SetData(_data)
-      show_debug_message($"{__.name} used!")
+      show_debug_message($"{GetName()} used!")
     }
   })
   itemPickaxe     = new Item("Pickaxe", "", pickaxe, 1, {
     durability: 300,
     GetDesc : function(_itemData) {
-      var _desc = $"{_itemData.rarity}\nPointy\nDurability: {__.durability-_itemData.damage}/{__.durability}"
+      var _desc = $"{_itemData.rarity}\nPointy\nDurability: {durability-_itemData.damage}/{durability}"
       return _desc;
     },
     OnUse : function(_slot) {
       var _data = _slot.GetData()
       _data.damage++
-      if (_data.damage > __.durability) {
+      if (_data.damage > durability) {
         _slot.Destroy()
       }
       _slot.SetData(_data)
-      show_debug_message($"{__.name} used!")
+      show_debug_message($"{GetName()} used!")
     }
   })
   itemAxe         = new Item("Axe", "", axe, 1, {
     durability: 350,
     GetDesc : function(_itemData) {
-      var _desc = $"{_itemData.rarity}\nChop chop\nDurability: {__.durability-_itemData.damage}/{__.durability}"
+      var _desc = $"{_itemData.rarity}\nChop chop\nDurability: {durability-_itemData.damage}/{durability}"
       return _desc;
     },
     OnUse : function(_slot) {
       var _data = _slot.GetData()
       _data.damage++
-      if (_data.damage > __.durability) {
+      if (_data.damage > durability) {
         _slot.Destroy()
       }
       _slot.SetData(_data)
-      show_debug_message($"{__.name} used!")
+      show_debug_message($"{GetName()} used!")
     }
   })
   itemHammer      = new Item("Hammer", "", hammer, 1, {
     durability: 250,
     GetDesc : function(_itemData) {
-      var _desc = $"{_itemData.rarity}\nBuild and repair!\nDurability: {__.durability-_itemData.damage}/{__.durability}"
+      var _desc = $"{_itemData.rarity}\nBuild and repair!\nDurability: {durability-_itemData.damage}/{durability}"
       return _desc;
     },
     OnUse : function(_slot) {
       var _data = _slot.GetData()
       _data.damage++
-      if (_data.damage > __.durability) {
+      if (_data.damage > durability) {
         _slot.Destroy()
       }
       _slot.SetData(_data)
-      show_debug_message($"{__.name} used!")
+      show_debug_message($"{GetName()} used!")
     }
   })
   
@@ -73,14 +73,14 @@ with (global.itemDatabase) {
   itemCarrot      = new Item("Carrot", "Tasty", carrot_05)
   itemSunflower   = new Item("Sunflower", "Oh sunshine", sunflower_05)
   
-  itemEgg         = new Item("Egg", "Good for ommelet", egg, 12, {
+  itemEgg         = new Item("Egg", "Good for ommelet", egg,, {
     OnUse : function(_slot) {
       show_debug_message($"Trowed an egg!")
       _slot.SetCount(_slot.GetCount()-1)
     }
   })
   itemFish        = new Item("Fish", "Smelly", fish)
-  itemMilk        = new Item("Milk", "Yummy!", milk, 8)
+  itemMilk        = new Item("Milk", "Yummy!", milk)
   itemWood        = new Item("Wood", "Basic material", wood, 64)
   
   itemWatch       = new Item("Watch", "Tells the time", stopwatch, 1, {
@@ -88,7 +88,7 @@ with (global.itemDatabase) {
       var _h = string_replace_all(string_format(current_hour, 2, 0), " ", "0")
       var _m = string_replace_all(string_format(current_minute, 2, 0), " ", "0")
       var _s = string_replace_all(string_format(current_second, 2, 0), " ", "0")
-      return __.description + $"\n{_h}:{_m}:{_s}";
+      return __description + $"\n{_h}:{_m}:{_s}";
     },
   })
 }
